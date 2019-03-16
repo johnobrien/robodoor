@@ -8,6 +8,7 @@ def print_counter(n):
         print(i)
         time.sleep(1)
 
+
 def extend_pause_restract_arm():
     mc = SMC('/dev/ttyACM0', 115200)
     # drive using 12b mode
@@ -26,6 +27,7 @@ def extend_pause_restract_arm():
 
 def button_callback():
     print("Button was pushed!")
+    extend_pause_restract_arm()
 
 
 GPIO.setwarnings(True)
