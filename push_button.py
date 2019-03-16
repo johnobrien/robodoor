@@ -8,11 +8,8 @@ def print_counter(n):
         print(i)
         time.sleep(1)
 
-
-def button_callback(channel):
-    print("Button was pushed!")
+def extend_pause_restract_arm():
     mc = SMC('/dev/ttyACM0', 115200)
-
     # drive using 12b mode
     print("Arm extending...")
     mc.init()
@@ -27,15 +24,26 @@ def button_callback(channel):
     print_counter(15)
     mc.stop()
 
-
-GPIO.setwarnings(False) # Ignore warning for now
-GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
-GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Set pin 10 to be an input pin and set initial value to be pulled low (off)
-
-GPIO.add_event_detect(10,GPIO.RISING,callback=button_callback) # Setup event on pin 10 rising edge
-
-message = input("Press enter to quit\n\n") # Run until someone presses enter
-
-GPIO.cleanup() # Clean up
+def button_callback():
+    print("Button was pushed!")
 
 
+GPIO.setwarnings(True)
+# Set mode to use the pin labels that match the cobbler board
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+print("Press ctrl-c to quit.\n\n")
+
+prev_input = 0
+try:
+    while True:
+        input = GPIO.input(18)
+        if not prev_input and input:
+            button_callback()
+        prev_input = input
+        time.sleep(0.65)
+
+except KeyboardInterrupt:
+    # Clean up
+    GPIO.cleanup()
