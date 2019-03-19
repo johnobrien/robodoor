@@ -35,24 +35,15 @@ GPIO.setwarnings(True)
 # Set mode to use the pin labels that match the cobbler board
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 print("Press ctrl-c to quit.\n\n")
 
 prev_input = 0
 try:
     while True:
-        if GPIO.input(21):
-            button_input = GPIO.input(18)
-            if not prev_input and button_input:
-                button_callback()
-                print(GPIO.input(21))
-            prev_input = button_input
-            time.sleep(0.65)
+        GPIO.wait_for_edge(18, GPIO.RISING, bouncetime=2000)
+        button_callback()
 
 except KeyboardInterrupt:
-    # Clean up
     GPIO.cleanup()
-
-
-
+GPIO.cleanup()
