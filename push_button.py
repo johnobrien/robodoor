@@ -1,5 +1,5 @@
 import time
-import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
+import RPi.GPIO as GPIO
 from smc import SMC
 
 
@@ -25,25 +25,28 @@ def extend_pause_restract_arm():
     print_counter(15)
     mc.stop()
 
+
 def button_callback():
     print("Button was pushed!")
-    extend_pause_restract_arm()
+#    extend_pause_restract_arm()
 
 
 GPIO.setwarnings(True)
 # Set mode to use the pin labels that match the cobbler board
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 print("Press ctrl-c to quit.\n\n")
 
 prev_input = 0
 try:
     while True:
-        input = GPIO.input(18)
-        if not prev_input and input:
+        button_input = GPIO.input(18)
+        if not prev_input and button_input:
             button_callback()
-        prev_input = input
+            print(GPIO.input(21))
+        prev_input = button_input
         time.sleep(0.65)
 
 except KeyboardInterrupt:
