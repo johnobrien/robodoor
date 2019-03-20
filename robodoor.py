@@ -26,23 +26,28 @@ def extend_pause_restract_arm():
     mc.stop()
 
 
-def button_callback():
-    print("Button was pushed!")
+def door_button_callback(channel):
+    print("Door button was pushed!")
 #    extend_pause_restract_arm()
 
+def power_button_callback(channel):
+    print("Power Button was pressed!")
 
 GPIO.setwarnings(True)
 # Set mode to use the pin labels that match the cobbler board
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(3, GPIO.IN)
+
+GPIO.add_event_detect(18, GPIO.RISING, callback=door_button_callback, bouncetime=2000)
+GPIO.add_event_detect(3, GPIO.RISING, callback=power_button_callback, bouncetime=2000)
+
 
 print("Press ctrl-\ to quit.\n\n")
 
-prev_input = 0
 try:
     while True:
-        GPIO.wait_for_edge(18, GPIO.RISING, bouncetime=2000)
-        button_callback()
+        input()
 
 except KeyboardInterrupt:
     GPIO.cleanup()
