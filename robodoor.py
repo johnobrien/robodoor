@@ -41,8 +41,7 @@ print("Press ctrl-\ to quit.\n\n")
 prev_input = 0
 try:
     while True:
-        GPIO.wait_for_edge(18, GPIO.RISING, bouncetime=2000)
-        button_callback()
+        GPIO.add_event_detect(18, GPIO.RISING, button_callback, bouncetime=2000)
 
 except KeyboardInterrupt:
     GPIO.cleanup()
