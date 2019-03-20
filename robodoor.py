@@ -36,7 +36,7 @@ GPIO.setwarnings(True)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-print("Press ctrl-c to quit.\n\n")
+print("Press ctrl-\ to quit.\n\n")
 
 prev_input = 0
 try:
