@@ -28,7 +28,7 @@ def extend_pause_restract_arm():
 
 def button_callback():
     print("Button was pushed!")
-    extend_pause_restract_arm()
+#    extend_pause_restract_arm()
 
 
 GPIO.setwarnings(True)
@@ -36,7 +36,7 @@ GPIO.setwarnings(True)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-print("Press ctrl-\ to quit.\n\n")
+print("Press ctrl-c to quit.\n\n")
 
 prev_input = 0
 try:
