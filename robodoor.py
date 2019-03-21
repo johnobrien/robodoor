@@ -1,7 +1,7 @@
 import time
 import RPi.GPIO as GPIO
 from smc import SMC
-
+import subprocess
 
 def print_counter(n):
     for i in range(1, n):
@@ -28,10 +28,12 @@ def extend_pause_restract_arm():
 
 def door_button_callback(channel):
     print("Door button was pushed!")
-#    extend_pause_restract_arm()
+    extend_pause_restract_arm()
 
 def power_button_callback(channel):
     print("Power Button was pressed!")
+    subprocess.call(['sudo', 'poweroff'])
+
 
 GPIO.setwarnings(True)
 # Set mode to use the pin labels that match the cobbler board
@@ -47,7 +49,7 @@ print("Press ctrl-\ to quit.\n\n")
 
 try:
     while True:
-        input()
+        time.sleep(1e6)
 
 except KeyboardInterrupt:
     GPIO.cleanup()
