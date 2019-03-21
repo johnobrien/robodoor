@@ -47,10 +47,16 @@ GPIO.add_event_detect(3, GPIO.RISING, callback=power_button_callback, bouncetime
 
 print("Press ctrl-\ to quit.\n\n")
 
-try:
-    while True:
-        pass
 
-except KeyboardInterrupt:
+def main():
+    try:
+        while True:
+            pass
+
+    except KeyboardInterrupt:
+        GPIO.cleanup()
     GPIO.cleanup()
-GPIO.cleanup()
+
+
+if __name__ == "__main__":
+    main()
