@@ -49,7 +49,7 @@ print("Press ctrl-\ to quit.\n\n")
 
 try:
     while True:
-        time.sleep(1e6)
+        pass
 
 except KeyboardInterrupt:
     GPIO.cleanup()
