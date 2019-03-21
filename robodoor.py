@@ -41,8 +41,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(3, GPIO.IN)
 
-GPIO.add_event_detect(18, GPIO.RISING, callback=door_button_callback, bouncetime=2000)
-GPIO.add_event_detect(3, GPIO.RISING, callback=power_button_callback, bouncetime=2000)
+GPIO.add_event_detect(18, GPIO.RISING, callback=door_button_callback, bouncetime=40000)
+GPIO.add_event_detect(3, GPIO.RISING, callback=power_button_callback)
 
 
 print("Press ctrl-\ to quit.\n\n")
